@@ -19,6 +19,8 @@ import javax.swing.table.DefaultTableModel;
 import sockets.Server;
 
 
+
+
 import javax.swing.ImageIcon;
 
 import java.awt.Color;
@@ -33,6 +35,8 @@ import java.net.Socket;
 import javax.swing.JSeparator;
 import javax.swing.Box;
 import javax.swing.border.LineBorder;
+
+import comandos.Captura;
 
 public class Formulario extends JFrame implements ActionListener {
 
@@ -276,6 +280,16 @@ public class Formulario extends JFrame implements ActionListener {
 		}
 	}
 	protected void do_btnBloquear_actionPerformed(ActionEvent arg0) {
+          int fila = table.getSelectedRow();
+		
+		if(fila != -1){
+			DefaultTableModel m = (DefaultTableModel) table.getModel();
+			String ip = m.getValueAt(fila, 0).toString();
+			
+			server.detener(ip);
+		}else{
+			JOptionPane.showMessageDialog(this, "Seleccione una fila");
+		}
 	}
 	protected void do_btnEnvArchivo_actionPerformed(ActionEvent arg0) {
 		int fila = table.getSelectedRow();
@@ -317,9 +331,47 @@ public class Formulario extends JFrame implements ActionListener {
 
 	}
 	protected void do_btnBloquearProgramas_actionPerformed(ActionEvent arg0) {
+int fila = table.getSelectedRow();
+		
+		if(fila != -1){
+			DefaultTableModel m = (DefaultTableModel) table.getModel();
+			String ip = m.getValueAt(fila, 0).toString();
+			
+			server.detener(ip);
+		}else{
+			JOptionPane.showMessageDialog(this, "Seleccione una fila");
+		}
+		
 	}
 	protected void do_btnCapturarPantalla_actionPerformed(ActionEvent arg0) {
-	}
+		
+        int fila = table.getSelectedRow();
+		
+		if(fila != -1){
+			DefaultTableModel m = (DefaultTableModel) table.getModel();
+			String ip = m.getValueAt(fila, 0).toString();
+			
+			server.detener(ip);
+		}else{
+			JOptionPane.showMessageDialog(this, "Seleccione una fila");
+		}
+		
+		try
+		{
+		System.out.println("[ Captura iniciada ]");
+		//sleep 5 sg
+		Thread.currentThread().sleep(5*1000);
+		String FILENAME="C:/server/captura01.png";
+		Captura.captura(FILENAME);
+		System.out.println("[ Captura finalizada ]");
+		}
+		catch(Exception e)
+		{
+		e.printStackTrace();
+		}
+		
+		}
+
 	protected void do_btnVerProcesosRemotos_actionPerformed(ActionEvent arg0) {
 	}
 }

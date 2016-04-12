@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 public class Cliente {
 
-	private final String HOST = "192.168.42.179";
+	private final String HOST = "localhost";
 	private final int PUERTO = 7;
 	
 	public Cliente() {
@@ -32,7 +32,7 @@ public class Cliente {
 				//----------Apagar Equipo-----------//	
 				//1--> Se refiere al primer boton
 				if(msg.equals("1")){
-					//Runtime.getRuntime().exec("shutdown -s -t 3600");
+					Runtime.getRuntime().exec("shutdown -s -t 3600");
 				}
 				//----------Reiniciar Equipo-----------//	
 				else if(msg.equals("2")){
@@ -43,6 +43,10 @@ public class Cliente {
 				else if(msg.equals("3")){
 					String mensaje = ois.readObject().toString();
 					JOptionPane.showMessageDialog(null, mensaje);
+				}
+				//-----------Detener-----------//	
+				else if(msg.equals("4")){
+					Runtime.getRuntime().exec("shutdown -a");
 				}
 			}
 		} catch (UnknownHostException e) {

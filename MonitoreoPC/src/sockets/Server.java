@@ -1,5 +1,10 @@
 package sockets;
 
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -7,8 +12,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import comandos.Captura;
 
 public class Server {
 
@@ -78,6 +86,7 @@ public class Server {
 					e.printStackTrace();
 				}
 			}
+				
 			public void enviarMensaje(String ip, String mensaje){
 				try {
 					for (Socket aux : clientes) {
@@ -95,4 +104,50 @@ public class Server {
 					e.printStackTrace();
 				}
 			}
+			
+			public void detener(String ip){
+				try {
+					for (Socket aux : clientes) {
+						String ipCliente = aux.getInetAddress().toString();
+						System.out.println("aux->" + ipCliente + " - ip-> " + ip);
+					
+						if(ipCliente.equals(ip)){
+							ObjectOutputStream ous =	new ObjectOutputStream(aux.getOutputStream());
+							ObjectInputStream ois =	new ObjectInputStream(aux.getInputStream());
+							ous.writeObject("4");
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			 public void captura(String ip,String fileName) {
+				try {
+					for (Socket aux : clientes) {
+						String ipCliente = aux.getInetAddress().toString();
+						System.out.println("aux->" + ipCliente + " - ip-> " + ip);
+					
+						if(ipCliente.equals(ip)){
+							ObjectOutputStream ous =	new ObjectOutputStream(aux.getOutputStream());
+							ObjectInputStream ois =	new ObjectInputStream(aux.getInputStream());
+							ous.writeObject("5");
+							
+							
+							Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+							Rectangle screenRectangle = new Rectangle(screenSize);
+							Robot robot = new Robot();
+							BufferedImage image = robot.createScreenCapture(screenRectangle);
+							ImageIO.write(image, "png", new File(fileName));
+							}
+							
+
+						}
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			
 		}
