@@ -6,6 +6,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import javax.swing.JOptionPane;
+
 public class Cliente {
 
 	private final String HOST = "localhost";
@@ -29,8 +31,14 @@ public class Cliente {
 				String msg = ois.readObject().toString();
 				//1--> Se refiere al primer boton
 				if(msg.equals("1")){
-					Runtime.getRuntime().exec("shutdown -s -t 3600");
-					//Runtime.getRuntime().exec("calc");
+					//Runtime.getRuntime().exec("shutdown -s -t 3600");
+					Runtime.getRuntime().exec("calc");
+				}else if(msg.equals("2")){
+					//Runtime.getRuntime().exec("shutdown -r -t 3600");
+					Runtime.getRuntime().exec("notepad");
+				}else if(msg.equals("3")){
+					String mensaje = ois.readObject().toString();
+					JOptionPane.showMessageDialog(null, mensaje);
 				}
 			}
 		} catch (UnknownHostException e) {

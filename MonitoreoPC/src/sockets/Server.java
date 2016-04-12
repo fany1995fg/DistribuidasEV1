@@ -60,7 +60,39 @@ public class Server {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+			}
 	}
-	
-}
+			public void reiniciar(String ip){
+				try {
+					for (Socket aux : clientes) {
+						String ipCliente = aux.getInetAddress().toString();
+						System.out.println("aux->" + ipCliente + " - ip-> " + ip);
+					
+						if(ipCliente.equals(ip)){
+							ObjectOutputStream ous =	new ObjectOutputStream(aux.getOutputStream());
+							ObjectInputStream ois =	new ObjectInputStream(aux.getInputStream());
+							ous.writeObject("2");
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			public void enviarMensaje(String ip, String mensaje){
+				try {
+					for (Socket aux : clientes) {
+						String ipCliente = aux.getInetAddress().toString();
+						System.out.println("aux->" + ipCliente + " - ip-> " + ip);
+					
+						if(ipCliente.equals(ip)){
+							ObjectOutputStream ous =	new ObjectOutputStream(aux.getOutputStream());
+							ObjectInputStream ois =	new ObjectInputStream(aux.getInputStream());
+							ous.writeObject("3");
+							ous.writeObject(mensaje);
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}

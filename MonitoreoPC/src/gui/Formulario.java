@@ -264,19 +264,57 @@ public class Formulario extends JFrame implements ActionListener {
 	}
 	
 	protected void do_btnReiniciar_actionPerformed(ActionEvent arg0) {
-      
-	}
-	
-	protected void do_btnBloquear_actionPerformed(ActionEvent arg0) {
+		int fila = table.getSelectedRow();
 		
-				
-			}
-
+		if(fila != -1){
+			DefaultTableModel m = (DefaultTableModel) table.getModel();
+			String ip = m.getValueAt(fila, 0).toString();
+			
+			server.reiniciar(ip);
+		}else{
+			JOptionPane.showMessageDialog(this, "Seleccione una fila");
+		}
+	}
+	protected void do_btnBloquear_actionPerformed(ActionEvent arg0) {
+	}
 	protected void do_btnEnvArchivo_actionPerformed(ActionEvent arg0) {
+		int fila = table.getSelectedRow();
+		
+		if(fila != -1){
+			DefaultTableModel m = (DefaultTableModel) table.getModel();
+			String ip = m.getValueAt(fila, 0).toString();
+			
+			FrmSeleccionFile file = new FrmSeleccionFile();	
+			String filePath = file.lbl.getText();
+			
+			System.out.println(filePath);
+			//server.enviarFile(ip,filePath);	
+			
+		}else{
+			JOptionPane.showMessageDialog(this, "Seleccione una fila");
+		}
+
 	}
 	protected void do_btnTraerArchivo_actionPerformed(ActionEvent arg0) {
 	}
 	protected void do_btnEnviarMensaje_actionPerformed(ActionEvent arg0) {
+		int fila = table.getSelectedRow();
+		
+		if(fila != -1){
+			DefaultTableModel m = (DefaultTableModel) table.getModel();
+			String ip = m.getValueAt(fila, 0).toString();
+			
+			String mensaje = JOptionPane.showInputDialog("Ingrese mensaje");
+	
+			if(mensaje != null && mensaje.trim().length()>0){
+				server.enviarMensaje(ip,mensaje);	
+			}else{
+				JOptionPane.showMessageDialog(this, "Ingrese mensaje");
+			}
+		}else{
+			JOptionPane.showMessageDialog(this, "Seleccione una fila");
+		}
+
 	}
 	protected void do_btnBloquearProgramas_actionPerformed(ActionEvent arg0) {
 	}
