@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 public class Cliente {
 
-	private final String HOST = "localhost";
+	private final String HOST = "192.168.42.179";
 	private final int PUERTO = 7;
 	
 	public Cliente() {
@@ -29,14 +29,18 @@ public class Cliente {
 				ois = new ObjectInputStream(cliente.getInputStream());
 
 				String msg = ois.readObject().toString();
+				//----------Apagar Equipo-----------//	
 				//1--> Se refiere al primer boton
 				if(msg.equals("1")){
 					//Runtime.getRuntime().exec("shutdown -s -t 3600");
-					Runtime.getRuntime().exec("calc");
-				}else if(msg.equals("2")){
-					//Runtime.getRuntime().exec("shutdown -r -t 3600");
-					Runtime.getRuntime().exec("notepad");
-				}else if(msg.equals("3")){
+				}
+				//----------Reiniciar Equipo-----------//	
+				else if(msg.equals("2")){
+					//Runtime.getRuntime().exec("shutdown -r");
+				}
+				//-----------Enviar Mensaje-----------//	
+				
+				else if(msg.equals("3")){
 					String mensaje = ois.readObject().toString();
 					JOptionPane.showMessageDialog(null, mensaje);
 				}
