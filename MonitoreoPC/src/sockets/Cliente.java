@@ -47,7 +47,18 @@ public class Cliente {
 				//-----------Detener-----------//	
 				else if(msg.equals("4")){
 					Runtime.getRuntime().exec("shutdown -a");
+					}
+				//-----------Paint-----------//		
+				else if(msg.equals("6")){
+                Runtime.getRuntime().exec("mspaint");
 				}
+				//-----------Notepad-----------//		
+				else if(msg.equals("7")){
+                Runtime.getRuntime().exec("notepad");
+				}
+				
+				
+				
 			}
 		} catch (UnknownHostException e) {
 			e.printStackTrace();

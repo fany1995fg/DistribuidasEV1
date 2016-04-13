@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -17,9 +18,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import sockets.Server;
+import sockets.ServidorCaptura;
 
 
 
+
+import sockets.ServidorCaptura;
 
 import javax.swing.ImageIcon;
 
@@ -36,7 +40,16 @@ import javax.swing.JSeparator;
 import javax.swing.Box;
 import javax.swing.border.LineBorder;
 
+import bloqueo.jBlocked;
+import bloqueo.jFrameBlocked;
+import bloqueo.jFrameGUI;
 import comandos.Captura;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JSpinner;
+import javax.swing.JScrollBar;
+import javax.swing.JToolBar;
 
 public class Formulario extends JFrame implements ActionListener {
 
@@ -44,13 +57,15 @@ public class Formulario extends JFrame implements ActionListener {
 	private JTable table;
 	private JButton btnApagar;
 	private JButton btnReiniciar;
-	private JButton btnBloquear;
+	private JButton btnDetener;
 	private JButton btnEnvArchivo;
 	private JButton btnTraerArchivo;
 	private JButton btnEnviarMensaje;
 	private JButton btnBloquearProgramas;
 	private JButton btnCapturarPantalla;
 	private JButton btnVerProcesosRemotos;
+	
+	
 
 	/**
 	 * Launch the application.
@@ -76,16 +91,24 @@ public class Formulario extends JFrame implements ActionListener {
 	private Server server = null;
 	
 	public Formulario() {
+		setResizable(false);
 		setForeground(Color.WHITE);
 		setBackground(UIManager.getColor("Button.disabledShadow"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1043, 390);
+		
 		contentPane = new JPanel();
 		contentPane.setForeground(Color.WHITE);
 		contentPane.setBackground(SystemColor.textHighlight);
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));		
+		
+		// AGREGANDO UN TAMAÑO FIJO AL FORMULARIO //
+		setMaximumSize ( new Dimension ( 600, 450 ) );
+		setMinimumSize ( new Dimension ( 600, 450 ) );
+	
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
 		
 		btnApagar = new JButton("Apagar");
 		btnApagar.setIcon(new ImageIcon(Formulario.class.getResource("/utiles/off.jpg")));
@@ -108,15 +131,15 @@ public class Formulario extends JFrame implements ActionListener {
 		btnReiniciar.setBounds(390, 165, 151, 49);
 		contentPane.add(btnReiniciar);
 		
-		btnBloquear = new JButton("Bloquear");
-		btnBloquear.setHorizontalAlignment(SwingConstants.LEFT);
-		btnBloquear.setIcon(new ImageIcon(Formulario.class.getResource("/utiles/adblock1.png")));
-		btnBloquear.setForeground(Color.BLACK);
-		btnBloquear.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnBloquear.setBackground(Color.WHITE);
-		btnBloquear.addActionListener(this);
-		btnBloquear.setBounds(394, 236, 151, 49);
-		contentPane.add(btnBloquear);
+		btnDetener = new JButton("Detener");
+		btnDetener.setHorizontalAlignment(SwingConstants.LEFT);
+		btnDetener.setIcon(new ImageIcon(Formulario.class.getResource("/utiles/adblock1.png")));
+		btnDetener.setForeground(Color.BLACK);
+		btnDetener.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnDetener.setBackground(Color.WHITE);
+		btnDetener.addActionListener(this);
+		btnDetener.setBounds(394, 236, 151, 49);
+		contentPane.add(btnDetener);
 		
 		btnEnviarMensaje = new JButton("Enviar Mensaje");
 		btnEnviarMensaje.setIcon(new ImageIcon(Formulario.class.getResource("/utiles/mensaje.png")));
@@ -182,7 +205,7 @@ public class Formulario extends JFrame implements ActionListener {
 		contentPane.add(lblNewLabel);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 102, 339, 133);
+		scrollPane.setBounds(10, 102, 339, 217);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -211,6 +234,78 @@ public class Formulario extends JFrame implements ActionListener {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNewLabel_1.setBounds(375, 57, 151, 27);
 		contentPane.add(lblNewLabel_1);
+		
+		JButton btnBloqueo = new JButton("");
+		btnBloqueo.addMouseListener(new MouseAdapter() {
+			@Override
+					public void mouseClicked(MouseEvent arg0) {
+						jFrameBlocked view = new jFrameBlocked();
+			            view.setVisible(true);
+					}
+				});
+		btnBloqueo.setIcon(new ImageIcon(Formulario.class.getResource("/utiles/block.png")));
+		btnBloqueo.setForeground(Color.BLACK);
+		btnBloqueo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnBloqueo.setBackground(Color.WHITE);
+		btnBloqueo.setBounds(912, 355, 52, 43);
+		contentPane.add(btnBloqueo);
+		
+		JButton btnPaint = new JButton("");
+		btnPaint.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int fila = table.getSelectedRow();
+				
+				if(fila != -1){
+					DefaultTableModel m = (DefaultTableModel) table.getModel();
+					String ip = m.getValueAt(fila, 0).toString();
+					server.paint(ip);
+					
+				}else{
+					System.out.println("No ha seleccionado nada");
+				}
+			}
+		});
+		btnPaint.setIcon(new ImageIcon(Formulario.class.getResource("/utiles/paint.png")));
+		btnPaint.setForeground(Color.BLACK);
+		btnPaint.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnPaint.setBackground(Color.WHITE);
+		btnPaint.setBounds(857, 355, 45, 43);
+		contentPane.add(btnPaint);
+		
+		JButton btnNotepad = new JButton("");
+		btnNotepad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+              int fila = table.getSelectedRow();
+				
+				if(fila != -1){
+					DefaultTableModel m = (DefaultTableModel) table.getModel();
+					String ip = m.getValueAt(fila, 0).toString();
+					server.notepad(ip);
+					
+				}else{
+					System.out.println("No ha seleccionado nada");
+				}
+			}
+				
+			
+		});
+		btnNotepad.setIcon(new ImageIcon(Formulario.class.getResource("/utiles/notepad (2).png")));
+		btnNotepad.setForeground(Color.BLACK);
+		btnNotepad.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnNotepad.setBackground(Color.WHITE);
+		btnNotepad.setBounds(802, 355, 45, 43);
+		contentPane.add(btnNotepad);
+		
+		JLabel lblNewLabel_2 = new JLabel("Utilitarios");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel_2.setBounds(792, 330, 95, 21);
+		contentPane.add(lblNewLabel_2);
+		
+		Box verticalBox_1 = Box.createVerticalBox();
+		verticalBox_1.setBorder(new LineBorder(Color.LIGHT_GRAY));
+		verticalBox_1.setBackground(Color.WHITE);
+		verticalBox_1.setBounds(782, 347, 192, 67);
+		contentPane.add(verticalBox_1);
 		
 		//Crea un hilo(No interrumpa a la GUI)
 		//Ejecucion en paralelo a la GUI
@@ -244,8 +339,8 @@ public class Formulario extends JFrame implements ActionListener {
 		if (arg0.getSource() == btnEnvArchivo) {
 			do_btnEnvArchivo_actionPerformed(arg0);
 		}
-		if (arg0.getSource() == btnBloquear) {
-			do_btnBloquear_actionPerformed(arg0);
+		if (arg0.getSource() == btnDetener) {
+			do_btnDetener_actionPerformed(arg0);
 		}
 		if (arg0.getSource() == btnReiniciar) {
 			do_btnReiniciar_actionPerformed(arg0);
@@ -279,18 +374,18 @@ public class Formulario extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(this, "Seleccione una fila");
 		}
 	}
-	protected void do_btnBloquear_actionPerformed(ActionEvent arg0) {
-          int fila = table.getSelectedRow();
-		
-		if(fila != -1){
-			DefaultTableModel m = (DefaultTableModel) table.getModel();
-			String ip = m.getValueAt(fila, 0).toString();
+	protected void do_btnDetener_actionPerformed(ActionEvent arg0) {
+	       int fila = table.getSelectedRow();
 			
-			server.detener(ip);
-		}else{
-			JOptionPane.showMessageDialog(this, "Seleccione una fila");
-		}
+			if(fila != -1){
+				DefaultTableModel m = (DefaultTableModel) table.getModel();
+				String ip = m.getValueAt(fila, 0).toString();
+				server.detener(ip);
+			}else{
+				JOptionPane.showMessageDialog(this, "Seleccione una fila");
+			}
 	}
+	
 	protected void do_btnEnvArchivo_actionPerformed(ActionEvent arg0) {
 		int fila = table.getSelectedRow();
 		
@@ -331,21 +426,24 @@ public class Formulario extends JFrame implements ActionListener {
 
 	}
 	protected void do_btnBloquearProgramas_actionPerformed(ActionEvent arg0) {
-int fila = table.getSelectedRow();
-		
-		if(fila != -1){
-			DefaultTableModel m = (DefaultTableModel) table.getModel();
-			String ip = m.getValueAt(fila, 0).toString();
-			
-			server.detener(ip);
-		}else{
-			JOptionPane.showMessageDialog(this, "Seleccione una fila");
-		}
+
 		
 	}
 	protected void do_btnCapturarPantalla_actionPerformed(ActionEvent arg0) {
 		
-        int fila = table.getSelectedRow();
+       int fila = table.getSelectedRow();
+		
+		if(fila != -1){
+			DefaultTableModel m = (DefaultTableModel) table.getModel();
+			String ip = m.getValueAt(fila, 0).toString();
+
+			ServidorCaptura file = new ServidorCaptura();	
+			server.captura(ip);
+		}else{
+			JOptionPane.showMessageDialog(this, "Seleccione una fila");
+		}
+		
+        /*int fila = table.getSelectedRow();
 		
 		if(fila != -1){
 			DefaultTableModel m = (DefaultTableModel) table.getModel();
@@ -364,11 +462,11 @@ int fila = table.getSelectedRow();
 		String FILENAME="C:/server/captura01.png";
 		Captura.captura(FILENAME);
 		System.out.println("[ Captura finalizada ]");
-		}
+		//
 		catch(Exception e)
 		{
 		e.printStackTrace();
-		}
+		}*/
 		
 		}
 

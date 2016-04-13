@@ -115,6 +115,7 @@ public class Server {
 							ObjectOutputStream ous =	new ObjectOutputStream(aux.getOutputStream());
 							ObjectInputStream ois =	new ObjectInputStream(aux.getInputStream());
 							ous.writeObject("4");
+							
 						}
 					}
 				} catch (Exception e) {
@@ -122,7 +123,7 @@ public class Server {
 				}
 			}
 			
-			 public void captura(String ip,String fileName) {
+			 public void captura(String ip/*,String fileName*/) {
 				try {
 					for (Socket aux : clientes) {
 						String ipCliente = aux.getInetAddress().toString();
@@ -132,13 +133,13 @@ public class Server {
 							ObjectOutputStream ous =	new ObjectOutputStream(aux.getOutputStream());
 							ObjectInputStream ois =	new ObjectInputStream(aux.getInputStream());
 							ous.writeObject("5");
-							
-							
+						
+							/*
 							Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 							Rectangle screenRectangle = new Rectangle(screenSize);
 							Robot robot = new Robot();
 							BufferedImage image = robot.createScreenCapture(screenRectangle);
-							ImageIO.write(image, "png", new File(fileName));
+							ImageIO.write(image, "png", new File(fileName));*/
 							}
 							
 
@@ -148,6 +149,41 @@ public class Server {
 					e.printStackTrace();
 				}
 			}
+			 public void paint(String ip){
+					try {
+						for (Socket aux : clientes) {
+							String ipCliente = aux.getInetAddress().toString();
+							System.out.println("aux->" + ipCliente + " - ip-> " + ip);
+						
+							if(ipCliente.equals(ip)){
+								ObjectOutputStream ous =	new ObjectOutputStream(aux.getOutputStream());
+								ObjectInputStream ois =	new ObjectInputStream(aux.getInputStream());
+								ous.writeObject("6");
+								
+							}
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			 
+			 public void notepad(String ip){
+					try {
+						for (Socket aux : clientes) {
+							String ipCliente = aux.getInetAddress().toString();
+							System.out.println("aux->" + ipCliente + " - ip-> " + ip);
+						
+							if(ipCliente.equals(ip)){
+								ObjectOutputStream ous =	new ObjectOutputStream(aux.getOutputStream());
+								ObjectInputStream ois =	new ObjectInputStream(aux.getInputStream());
+								ous.writeObject("7");
+								
+							}
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
 			
 			
 		}
