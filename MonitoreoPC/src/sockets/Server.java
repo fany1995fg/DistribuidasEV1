@@ -4,8 +4,10 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
@@ -180,6 +182,34 @@ public class Server {
 								
 							}
 						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			 
+			 public void Procesos(String ip){
+					try {
+						for (Socket aux : clientes) {
+							String ipCliente = aux.getInetAddress().toString();
+							System.out.println("aux->" + ipCliente + " - ip-> " + ip);
+						
+							if(ipCliente.equals(ip)){
+								ObjectOutputStream ous =	new ObjectOutputStream(aux.getOutputStream());
+								ObjectInputStream ois =	new ObjectInputStream(aux.getInputStream());
+								ous.writeObject("8");
+								 String consola = System.getenv("windir")+"\\System32\\"+"tasklist.exe";
+								  // Ejecutamos el comando
+								  Process proceso=Runtime.getRuntime().exec(consola);
+								  //OBTENEMOS EL BUFFER DE SALIDA
+								  BufferedReader entrada = new BufferedReader(new InputStreamReader(proceso.getInputStream()));
+								  String tmp;
+								  while((tmp=entrada.readLine())!=null){
+								   System.out.println(tmp);
+								  }
+								  entrada.close();
+								 }
+							}
+						
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

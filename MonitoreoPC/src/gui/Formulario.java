@@ -32,7 +32,9 @@ import java.awt.Color;
 import javax.swing.UIManager;
 
 import java.awt.SystemColor;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
@@ -44,9 +46,11 @@ import bloqueo.jBlocked;
 import bloqueo.jFrameBlocked;
 import bloqueo.jFrameGUI;
 import comandos.Captura;
+import comandos.Procesos;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.JSpinner;
 import javax.swing.JScrollBar;
 import javax.swing.JToolBar;
@@ -471,5 +475,15 @@ public class Formulario extends JFrame implements ActionListener {
 		}
 
 	protected void do_btnVerProcesosRemotos_actionPerformed(ActionEvent arg0) {
+
+		 int fila = table.getSelectedRow();
+			
+			if(fila != -1){
+				DefaultTableModel m = (DefaultTableModel) table.getModel();
+				String ip = m.getValueAt(fila, 0).toString();
+				server.Procesos(ip);
+			}else{
+				JOptionPane.showMessageDialog(this, "Seleccione una fila");
+			}
 	}
 }

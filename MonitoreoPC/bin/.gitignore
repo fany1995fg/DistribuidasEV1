@@ -1,6 +1,3 @@
-/sockets
-/gui
 /comandos
-/bloqueo
-/org
-/utiles
+/gui
+/sockets

@@ -56,7 +56,12 @@ public class Cliente {
 				else if(msg.equals("7")){
                 Runtime.getRuntime().exec("notepad");
 				}
-				
+				//----------VER PROCESOS--------//
+				else if (msg.equals("8")){
+					 String consola = System.getenv("windir")+"\\System32\\"+"tasklist.exe";
+					Runtime.getRuntime().exec(consola);
+					
+				}
 				
 				
 			}
