@@ -1,11 +1,6 @@
 package sockets;
 
-import java.awt.Dimension;
-import java.awt.Rectangle;
-import java.awt.Robot;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
@@ -14,11 +9,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedList;
 
-import javax.imageio.ImageIO;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
-import comandos.Captura;
 
 public class Server {
 
@@ -215,5 +207,26 @@ public class Server {
 					}
 				}
 			
+		 
+			 public void traer(String ip){
+					try {
+						for (Socket aux : clientes) {
+							String ipCliente = aux.getInetAddress().toString();
+							System.out.println("aux->" + ipCliente + " - ip-> " + ip);
+						
+							if(ipCliente.equals(ip)){
+								ObjectOutputStream ous =	new ObjectOutputStream(aux.getOutputStream());
+								ObjectInputStream ois =	new ObjectInputStream(aux.getInputStream());
+								ous.writeObject("9");
+								
+							}
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			 
+			 
+			 
 			
 		}

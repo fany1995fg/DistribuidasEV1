@@ -7,6 +7,9 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+import bloqueo.jFrameGUI;
 
 public class Cliente {
 
@@ -58,10 +61,12 @@ public class Cliente {
 				}
 				//----------VER PROCESOS--------//
 				else if (msg.equals("8")){
-					 String consola = System.getenv("windir")+"\\System32\\"+"tasklist.exe";
+					String consola = System.getenv("windir")+"\\System32\\"+"tasklist.exe";
 					Runtime.getRuntime().exec(consola);
-					
+
 				}
+				
+				
 				
 				
 			}

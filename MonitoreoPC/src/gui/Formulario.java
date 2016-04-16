@@ -155,6 +155,16 @@ public class Formulario extends JFrame implements ActionListener {
 		contentPane.add(btnEnviarMensaje);
 		
 		btnTraerArchivo = new JButton("Traer Archivo");
+		btnTraerArchivo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+					ClaseFrame miVentana = new ClaseFrame();
+					miVentana.setTitle("");
+					miVentana.setVisible(true);
+				
+			}
+		});
 		btnTraerArchivo.setHorizontalAlignment(SwingConstants.LEFT);
 		btnTraerArchivo.setIcon(new ImageIcon(Formulario.class.getResource("/utiles/traer.png")));
 		btnTraerArchivo.setForeground(Color.BLACK);
@@ -165,6 +175,13 @@ public class Formulario extends JFrame implements ActionListener {
 		contentPane.add(btnTraerArchivo);
 		
 		btnEnvArchivo = new JButton("Enviar Archivo");
+		btnEnvArchivo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+					FormularioEnvio view = new FormularioEnvio();
+		            view.setVisible(true);
+			}
+		});
 		btnEnvArchivo.setIcon(new ImageIcon(Formulario.class.getResource("/utiles/enviar-archivos.png")));
 		btnEnvArchivo.setForeground(Color.BLACK);
 		btnEnvArchivo.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -340,9 +357,7 @@ public class Formulario extends JFrame implements ActionListener {
 		if (arg0.getSource() == btnTraerArchivo) {
 			do_btnTraerArchivo_actionPerformed(arg0);
 		}
-		if (arg0.getSource() == btnEnvArchivo) {
-			do_btnEnvArchivo_actionPerformed(arg0);
-		}
+		
 		if (arg0.getSource() == btnDetener) {
 			do_btnDetener_actionPerformed(arg0);
 		}
@@ -390,25 +405,22 @@ public class Formulario extends JFrame implements ActionListener {
 			}
 	}
 	
-	protected void do_btnEnvArchivo_actionPerformed(ActionEvent arg0) {
-		int fila = table.getSelectedRow();
+
+	protected void do_btnTraerArchivo_actionPerformed(ActionEvent arg0) {
+       int fila = table.getSelectedRow();
 		
 		if(fila != -1){
 			DefaultTableModel m = (DefaultTableModel) table.getModel();
 			String ip = m.getValueAt(fila, 0).toString();
-			
-			FrmSeleccionFile file = new FrmSeleccionFile();	
-			String filePath = file.lbl.getText();
-			
-			System.out.println(filePath);
-			//server.enviarFile(ip,filePath);	
-			
+
+			ClaseFrame file = new ClaseFrame();	
+			server.traer(ip);
 		}else{
 			JOptionPane.showMessageDialog(this, "Seleccione una fila");
+		
+		
 		}
-
-	}
-	protected void do_btnTraerArchivo_actionPerformed(ActionEvent arg0) {
+		
 	}
 	protected void do_btnEnviarMensaje_actionPerformed(ActionEvent arg0) {
 		int fila = table.getSelectedRow();
