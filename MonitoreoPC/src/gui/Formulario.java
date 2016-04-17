@@ -42,9 +42,8 @@ import javax.swing.JSeparator;
 import javax.swing.Box;
 import javax.swing.border.LineBorder;
 
-import bloqueo.jBlocked;
-import bloqueo.jFrameBlocked;
-import bloqueo.jFrameGUI;
+import blocked.jBlocked;
+import blocked.jFrameBlocked;
 import comandos.Captura;
 import comandos.Procesos;
 
@@ -103,7 +102,7 @@ public class Formulario extends JFrame implements ActionListener {
 		
 		contentPane = new JPanel();
 		contentPane.setForeground(Color.WHITE);
-		contentPane.setBackground(SystemColor.textHighlight);
+		contentPane.setBackground(SystemColor.activeCaption);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));		
 		
 		// AGREGANDO UN TAMAÑO FIJO AL FORMULARIO //
@@ -246,7 +245,7 @@ public class Formulario extends JFrame implements ActionListener {
 		verticalBox.setToolTipText("");
 		verticalBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		verticalBox.setForeground(SystemColor.activeCaption);
-		verticalBox.setBorder(new LineBorder(SystemColor.activeCaption));
+		verticalBox.setBorder(new LineBorder(SystemColor.infoText));
 		verticalBox.setBackground(SystemColor.activeCaption);
 		verticalBox.setBounds(375, 88, 617, 231);
 		contentPane.add(verticalBox);
@@ -323,8 +322,8 @@ public class Formulario extends JFrame implements ActionListener {
 		contentPane.add(lblNewLabel_2);
 		
 		Box verticalBox_1 = Box.createVerticalBox();
-		verticalBox_1.setBorder(new LineBorder(Color.LIGHT_GRAY));
-		verticalBox_1.setBackground(Color.WHITE);
+		verticalBox_1.setBorder(new LineBorder(SystemColor.infoText));
+		verticalBox_1.setBackground(SystemColor.activeCaption);
 		verticalBox_1.setBounds(782, 347, 192, 67);
 		contentPane.add(verticalBox_1);
 		

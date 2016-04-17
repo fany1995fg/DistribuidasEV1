@@ -9,7 +9,6 @@ import java.net.UnknownHostException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import bloqueo.jFrameGUI;
 
 public class Cliente {
 

@@ -1,5 +1,4 @@
-package bloqueo;
-
+package blocked;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -20,9 +19,7 @@ public class jBlocked {
         this.jframe = f;
     }
     
-
-
-	/**
+    /**
      * ejecuta una tarea cada "n" tiempo
      * Para evitar que el usuario utilice las teclas (WINDOWS + D)(TAB) y asi perder el foco
      * de la aplicación, cada 50 milisegundos se envia el JFrame al frente y se cambia su propiedad a maximizado
@@ -49,11 +46,4 @@ public class jBlocked {
         jframe.toFront();
     }
     
-    public void run() {
-        this.block();
-    }
-    
-    
-    
 }//--> fin
-
