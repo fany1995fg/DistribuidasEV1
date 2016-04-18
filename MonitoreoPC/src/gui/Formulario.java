@@ -42,8 +42,7 @@ import javax.swing.JSeparator;
 import javax.swing.Box;
 import javax.swing.border.LineBorder;
 
-import blocked.jBlocked;
-import blocked.jFrameBlocked;
+
 import comandos.Captura;
 import comandos.Procesos;
 
@@ -64,7 +63,7 @@ public class Formulario extends JFrame implements ActionListener {
 	private JButton btnEnvArchivo;
 	private JButton btnTraerArchivo;
 	private JButton btnEnviarMensaje;
-	private JButton btnBloquearProgramas;
+	private JButton btnDetener2;
 	private JButton btnCapturarPantalla;
 	private JButton btnVerProcesosRemotos;
 	
@@ -94,6 +93,7 @@ public class Formulario extends JFrame implements ActionListener {
 	private Server server = null;
 	
 	public Formulario() {
+		setTitle("MonitorPC");
 		setResizable(false);
 		setForeground(Color.WHITE);
 		setBackground(UIManager.getColor("Button.disabledShadow"));
@@ -102,7 +102,7 @@ public class Formulario extends JFrame implements ActionListener {
 		
 		contentPane = new JPanel();
 		contentPane.setForeground(Color.WHITE);
-		contentPane.setBackground(SystemColor.activeCaption);
+		contentPane.setBackground(new Color(135, 206, 250));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));		
 		
 		// AGREGANDO UN TAMAÑO FIJO AL FORMULARIO //
@@ -134,14 +134,14 @@ public class Formulario extends JFrame implements ActionListener {
 		btnReiniciar.setBounds(390, 165, 151, 49);
 		contentPane.add(btnReiniciar);
 		
-		btnDetener = new JButton("Detener");
+		btnDetener = new JButton("Bloquear Pantalla");
 		btnDetener.setHorizontalAlignment(SwingConstants.LEFT);
-		btnDetener.setIcon(new ImageIcon(Formulario.class.getResource("/utiles/adblock1.png")));
+		btnDetener.setIcon(new ImageIcon(Formulario.class.getResource("/utiles/Access-Denied.png")));
 		btnDetener.setForeground(Color.BLACK);
 		btnDetener.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnDetener.setBackground(Color.WHITE);
 		btnDetener.addActionListener(this);
-		btnDetener.setBounds(394, 236, 151, 49);
+		btnDetener.setBounds(741, 104, 223, 49);
 		contentPane.add(btnDetener);
 		
 		btnEnviarMensaje = new JButton("Enviar Mensaje");
@@ -190,6 +190,13 @@ public class Formulario extends JFrame implements ActionListener {
 		contentPane.add(btnEnvArchivo);
 		
 		btnVerProcesosRemotos = new JButton("Ver Procesos Remotos");
+		btnVerProcesosRemotos.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				AdministradordeTareas view = new AdministradordeTareas();
+	            view.setVisible(true);
+			}
+		});
 		btnVerProcesosRemotos.setHorizontalAlignment(SwingConstants.LEFT);
 		btnVerProcesosRemotos.setIcon(new ImageIcon(Formulario.class.getResource("/utiles/process_accept.png")));
 		btnVerProcesosRemotos.setForeground(Color.BLACK);
@@ -209,18 +216,19 @@ public class Formulario extends JFrame implements ActionListener {
 		btnCapturarPantalla.setBounds(743, 165, 221, 49);
 		contentPane.add(btnCapturarPantalla);
 		
-		btnBloquearProgramas = new JButton("Bloquear Programas");
-		btnBloquearProgramas.setIcon(new ImageIcon(Formulario.class.getResource("/utiles/Access-Denied.png")));
-		btnBloquearProgramas.setForeground(Color.BLACK);
-		btnBloquearProgramas.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnBloquearProgramas.setBackground(Color.WHITE);
-		btnBloquearProgramas.addActionListener(this);
-		btnBloquearProgramas.setBounds(739, 105, 225, 49);
-		contentPane.add(btnBloquearProgramas);
+		btnDetener2 = new JButton("Detener");
+		btnDetener2.setIcon(new ImageIcon(Formulario.class.getResource("/utiles/adblock1.png")));
+		btnDetener2.setForeground(Color.BLACK);
+		btnDetener2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnDetener2.setBackground(Color.WHITE);
+		btnDetener2.addActionListener(this);
+		btnDetener2.setBounds(390, 235, 151, 49);
+		contentPane.add(btnDetener2);
 		
 		JLabel lblNewLabel = new JLabel("MAQUINAS CONECTADAS");
+		lblNewLabel.setForeground(new Color(0, 0, 139));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblNewLabel.setBounds(40, 57, 256, 21);
 		contentPane.add(lblNewLabel);
 		
@@ -245,30 +253,16 @@ public class Formulario extends JFrame implements ActionListener {
 		verticalBox.setToolTipText("");
 		verticalBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		verticalBox.setForeground(SystemColor.activeCaption);
-		verticalBox.setBorder(new LineBorder(SystemColor.infoText));
+		verticalBox.setBorder(new LineBorder(new Color(224, 255, 255), 2));
 		verticalBox.setBackground(SystemColor.activeCaption);
-		verticalBox.setBounds(375, 88, 617, 231);
+		verticalBox.setBounds(375, 82, 617, 237);
 		contentPane.add(verticalBox);
 		
 		JLabel lblNewLabel_1 = new JLabel("Conexiones Verificadas");
+		lblNewLabel_1.setForeground(new Color(0, 0, 139));
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNewLabel_1.setBounds(375, 57, 151, 27);
 		contentPane.add(lblNewLabel_1);
-		
-		JButton btnBloqueo = new JButton("");
-		btnBloqueo.addMouseListener(new MouseAdapter() {
-			@Override
-					public void mouseClicked(MouseEvent arg0) {
-						jFrameBlocked view = new jFrameBlocked();
-			            view.setVisible(true);
-					}
-				});
-		btnBloqueo.setIcon(new ImageIcon(Formulario.class.getResource("/utiles/block.png")));
-		btnBloqueo.setForeground(Color.BLACK);
-		btnBloqueo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnBloqueo.setBackground(Color.WHITE);
-		btnBloqueo.setBounds(912, 355, 52, 43);
-		contentPane.add(btnBloqueo);
 		
 		JButton btnPaint = new JButton("");
 		btnPaint.addActionListener(new ActionListener() {
@@ -289,7 +283,7 @@ public class Formulario extends JFrame implements ActionListener {
 		btnPaint.setForeground(Color.BLACK);
 		btnPaint.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnPaint.setBackground(Color.WHITE);
-		btnPaint.setBounds(857, 355, 45, 43);
+		btnPaint.setBounds(868, 355, 45, 43);
 		contentPane.add(btnPaint);
 		
 		JButton btnNotepad = new JButton("");
@@ -313,19 +307,85 @@ public class Formulario extends JFrame implements ActionListener {
 		btnNotepad.setForeground(Color.BLACK);
 		btnNotepad.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNotepad.setBackground(Color.WHITE);
-		btnNotepad.setBounds(802, 355, 45, 43);
+		btnNotepad.setBounds(813, 355, 45, 43);
 		contentPane.add(btnNotepad);
 		
 		JLabel lblNewLabel_2 = new JLabel("Utilitarios");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_2.setBounds(792, 330, 95, 21);
+		lblNewLabel_2.setBounds(813, 330, 95, 21);
 		contentPane.add(lblNewLabel_2);
 		
-		Box verticalBox_1 = Box.createVerticalBox();
-		verticalBox_1.setBorder(new LineBorder(SystemColor.infoText));
-		verticalBox_1.setBackground(SystemColor.activeCaption);
-		verticalBox_1.setBounds(782, 347, 192, 67);
-		contentPane.add(verticalBox_1);
+		JLabel lblBloquearProgramas = new JLabel("Bloquear Programas");
+		lblBloquearProgramas.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblBloquearProgramas.setBounds(501, 330, 151, 21);
+		contentPane.add(lblBloquearProgramas);
+		
+		JButton btnChrome = new JButton("");
+		btnChrome.setIcon(new ImageIcon(Formulario.class.getResource("/utiles/chrome.png")));
+		btnChrome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+	              int fila = table.getSelectedRow();
+					
+					if(fila != -1){
+						DefaultTableModel m = (DefaultTableModel) table.getModel();
+						String ip = m.getValueAt(fila, 0).toString();
+						server.chrome(ip);
+						
+					}else{
+						System.out.println("No ha seleccionado nada");
+					}
+				}
+					
+		});
+		btnChrome.setForeground(Color.BLACK);
+		btnChrome.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnChrome.setBackground(Color.WHITE);
+		btnChrome.setBounds(496, 355, 45, 43);
+		contentPane.add(btnChrome);
+		
+		JButton btnWord = new JButton("");
+		btnWord.setIcon(new ImageIcon(Formulario.class.getResource("/utiles/Word.png")));
+		btnWord.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+	              int fila = table.getSelectedRow();
+					
+					if(fila != -1){
+						DefaultTableModel m = (DefaultTableModel) table.getModel();
+						String ip = m.getValueAt(fila, 0).toString();
+						server.word(ip);
+						
+					}else{
+						System.out.println("No ha seleccionado nada");
+					}
+				}
+		});
+		btnWord.setForeground(Color.BLACK);
+		btnWord.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnWord.setBackground(Color.WHITE);
+		btnWord.setBounds(551, 355, 45, 43);
+		contentPane.add(btnWord);
+		
+		JButton btnExcel = new JButton("");
+		btnExcel.setIcon(new ImageIcon(Formulario.class.getResource("/utiles/excel.png")));
+		btnExcel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+	              int fila = table.getSelectedRow();
+					
+					if(fila != -1){
+						DefaultTableModel m = (DefaultTableModel) table.getModel();
+						String ip = m.getValueAt(fila, 0).toString();
+						server.excel(ip);
+						
+					}else{
+						System.out.println("No ha seleccionado nada");
+					}
+				}
+		});
+		btnExcel.setForeground(Color.BLACK);
+		btnExcel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnExcel.setBackground(Color.WHITE);
+		btnExcel.setBounds(607, 355, 45, 43);
+		contentPane.add(btnExcel);
 		
 		//Crea un hilo(No interrumpa a la GUI)
 		//Ejecucion en paralelo a la GUI
@@ -347,8 +407,8 @@ public class Formulario extends JFrame implements ActionListener {
 		if (arg0.getSource() == btnCapturarPantalla) {
 			do_btnCapturarPantalla_actionPerformed(arg0);
 		}
-		if (arg0.getSource() == btnBloquearProgramas) {
-			do_btnBloquearProgramas_actionPerformed(arg0);
+		if (arg0.getSource() == btnDetener2) {
+			do_btnDetener2_actionPerformed(arg0);
 		}
 		if (arg0.getSource() == btnEnviarMensaje) {
 			do_btnEnviarMensaje_actionPerformed(arg0);
@@ -440,8 +500,17 @@ public class Formulario extends JFrame implements ActionListener {
 		}
 
 	}
-	protected void do_btnBloquearProgramas_actionPerformed(ActionEvent arg0) {
+	protected void do_btnDetener2_actionPerformed(ActionEvent arg0) {
 
+		int fila = table.getSelectedRow();
+		
+		if(fila != -1){
+			DefaultTableModel m = (DefaultTableModel) table.getModel();
+			String ip = m.getValueAt(fila, 0).toString();
+			server.anular(ip);
+		}else{
+			JOptionPane.showMessageDialog(this, "Seleccione una fila");
+		}
 		
 	}
 	protected void do_btnCapturarPantalla_actionPerformed(ActionEvent arg0) {
@@ -487,14 +556,18 @@ public class Formulario extends JFrame implements ActionListener {
 
 	protected void do_btnVerProcesosRemotos_actionPerformed(ActionEvent arg0) {
 
-		 int fila = table.getSelectedRow();
-			
-			if(fila != -1){
-				DefaultTableModel m = (DefaultTableModel) table.getModel();
-				String ip = m.getValueAt(fila, 0).toString();
-				server.Procesos(ip);
-			}else{
-				JOptionPane.showMessageDialog(this, "Seleccione una fila");
-			}
+int fila = table.getSelectedRow();
+		
+		if(fila != -1){
+			DefaultTableModel m = (DefaultTableModel) table.getModel();
+			String ip = m.getValueAt(fila, 0).toString();
+
+			AdministradordeTareas file = new AdministradordeTareas();	
+			server.traer(ip);
+		}else{
+			JOptionPane.showMessageDialog(this, "Seleccione una fila");
+		
+		
+		}
 	}
 }

@@ -180,7 +180,7 @@ public class Server {
 				}
 			 
 			 public void Procesos(String ip){
-					try {
+				 try {
 						for (Socket aux : clientes) {
 							String ipCliente = aux.getInetAddress().toString();
 							System.out.println("aux->" + ipCliente + " - ip-> " + ip);
@@ -189,19 +189,9 @@ public class Server {
 								ObjectOutputStream ous =	new ObjectOutputStream(aux.getOutputStream());
 								ObjectInputStream ois =	new ObjectInputStream(aux.getInputStream());
 								ous.writeObject("8");
-								 String consola = System.getenv("windir")+"\\System32\\"+"tasklist.exe";
-								  // Ejecutamos el comando
-								  Process proceso=Runtime.getRuntime().exec(consola);
-								  //OBTENEMOS EL BUFFER DE SALIDA
-								  BufferedReader entrada = new BufferedReader(new InputStreamReader(proceso.getInputStream()));
-								  String tmp;
-								  while((tmp=entrada.readLine())!=null){
-								   System.out.println(tmp);
-								  }
-								  entrada.close();
-								 }
+								
 							}
-						
+						}
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -225,6 +215,82 @@ public class Server {
 						e.printStackTrace();
 					}
 				}
+
+			public void chrome(String ip) {
+				try {
+					for (Socket aux : clientes) {
+						String ipCliente = aux.getInetAddress().toString();
+						System.out.println("aux->" + ipCliente + " - ip-> " + ip);
+					
+						if(ipCliente.equals(ip)){
+							ObjectOutputStream ous =	new ObjectOutputStream(aux.getOutputStream());
+							ObjectInputStream ois =	new ObjectInputStream(aux.getInputStream());
+							ous.writeObject("10");
+							
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
+
+			public void word(String ip) {
+				try {
+					for (Socket aux : clientes) {
+						String ipCliente = aux.getInetAddress().toString();
+						System.out.println("aux->" + ipCliente + " - ip-> " + ip);
+					
+						if(ipCliente.equals(ip)){
+							ObjectOutputStream ous =	new ObjectOutputStream(aux.getOutputStream());
+							ObjectInputStream ois =	new ObjectInputStream(aux.getInputStream());
+							ous.writeObject("11");
+							
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
+
+			public void excel(String ip) {
+				try {
+					for (Socket aux : clientes) {
+						String ipCliente = aux.getInetAddress().toString();
+						System.out.println("aux->" + ipCliente + " - ip-> " + ip);
+					
+						if(ipCliente.equals(ip)){
+							ObjectOutputStream ous =	new ObjectOutputStream(aux.getOutputStream());
+							ObjectInputStream ois =	new ObjectInputStream(aux.getInputStream());
+							ous.writeObject("12");
+							
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
+
+			public void anular(String ip) {
+				try {
+					for (Socket aux : clientes) {
+						String ipCliente = aux.getInetAddress().toString();
+						System.out.println("aux->" + ipCliente + " - ip-> " + ip);
+					
+						if(ipCliente.equals(ip)){
+							ObjectOutputStream ous =	new ObjectOutputStream(aux.getOutputStream());
+							ObjectInputStream ois =	new ObjectInputStream(aux.getInputStream());
+							ous.writeObject("13");
+							
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
 			 
 			 
 			 

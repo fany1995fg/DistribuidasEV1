@@ -46,9 +46,9 @@ public class Cliente {
 					String mensaje = ois.readObject().toString();
 					JOptionPane.showMessageDialog(null, mensaje);
 				}
-				//-----------Detener-----------//	
+				//-----------Bloquear Pantalla-----------//	
 				else if(msg.equals("4")){
-					Runtime.getRuntime().exec("shutdown -a");
+					Runtime.getRuntime().exec("rundll32.exe user32.dll,LockWorkStation");
 					}
 				//-----------Paint-----------//		
 				else if(msg.equals("6")){
@@ -59,13 +59,27 @@ public class Cliente {
                 Runtime.getRuntime().exec("notepad");
 				}
 				//----------VER PROCESOS--------//
-				else if (msg.equals("8")){
-					String consola = System.getenv("windir")+"\\System32\\"+"tasklist.exe";
-					Runtime.getRuntime().exec(consola);
-
+				//else if (msg.equals("8")){
+					//String consola = System.getenv("windir")+"\\System32\\"+"tasklist.exe";
+					//Runtime.getRuntime().exec(consola);
+				//}
+				
+				//--------BLOQUEAR CHROME--------//
+				else if(msg.equals("10")){
+					Runtime.getRuntime().exec("taskkill /f /im chrome.exe");
 				}
-				
-				
+				//--------BLOQUEAR WORD--------//
+				else if(msg.equals("11")){
+					Runtime.getRuntime().exec("taskkill /f /im WINWORD.exe");
+				}
+				//--------BLOQUEAR EXCEL--------//
+				else if(msg.equals("12")){
+					Runtime.getRuntime().exec("taskkill /f /im excel.exe");
+				}
+				//--------ANULAR INSTRUCCIONES--------//
+				else if(msg.equals("13")){
+					Runtime.getRuntime().exec("shutdown -a");
+				}
 				
 				
 			}
