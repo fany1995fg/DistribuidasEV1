@@ -13,6 +13,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import javax.imageio.ImageIO;
+import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,12 +21,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import java.awt.Color;
+
+import javax.swing.SwingConstants;
+
+import java.awt.Font;
+
 public class ServidorCaptura extends JFrame implements ActionListener, Runnable {
     ServerSocket s;
     static Socket con;
     static ImageIcon img;
+    static JLabel lblEst;
     static JLabel lblImg;
-	static JLabel lblEst;
 	static Boolean est = false;
     static ObjectInputStream entrada;
     static ByteArrayInputStream bufferImg;
@@ -33,32 +40,46 @@ public class ServidorCaptura extends JFrame implements ActionListener, Runnable 
     static JButton btnIni;
     static JTextField txtPuerto;
     Thread t;
+	
     
     public ServidorCaptura(){
+    	setBackground(new Color(0, 255, 127));
         ini();
     }
     
     final void ini(){
+        getContentPane().setLayout(null);
+        JLabel label = new JLabel("Puerto");
+        label.setForeground(new Color(255, 255, 255));
+        label.setBounds(10, 24, 67, 20);
+        getContentPane().add(label);
+        label.setFont(new Font("Tahoma", Font.BOLD, 14));
         txtPuerto = new JTextField(5);
+        txtPuerto.setBounds(73, 26, 52, 20);
+        getContentPane().add(txtPuerto);
         txtPuerto.setText("5000");
         btnIni = new JButton("Iniciar");
-        btnIni.addActionListener(this);
-        lblEst = new JLabel("Esperando Iniciar");
-        JPanel p = new JPanel();
+        btnIni.setBounds(135, 23, 82, 24);
+        getContentPane().add(btnIni);
+        btnIni.setFont(new Font("Tahoma", Font.PLAIN, 12));
         
-        this.getContentPane().add(p, BorderLayout.NORTH);
-        
-        p.setLayout(new FlowLayout());
-        p.add(new JLabel("Puerto"));
-        p.add(txtPuerto);
-        p.add(btnIni);
-        p.add(lblEst);
+        JLabel lblEst = new JLabel("Esperando Iniciar");
+        lblEst.setForeground(new Color(255, 255, 255));
+        lblEst.setFont(new Font("Tahoma", Font.BOLD, 13));
+        lblEst.setBounds(222, 21, 136, 29);
+        getContentPane().add(lblEst);
         
         lblImg = new JLabel();
-        this.getContentPane().add(lblImg, BorderLayout.CENTER);
+        lblImg.setBounds(0, 0, 384, 72);
+        lblImg.setVerticalAlignment(SwingConstants.TOP);
+        lblImg.setIcon(new ImageIcon(ServidorCaptura.class.getResource("/utiles/fondo3.png")));
+        lblImg.setForeground(new Color(0, 250, 154));
+        lblImg.setBackground(new Color(255, 255, 240));
+        this.getContentPane().add(lblImg);
+        btnIni.addActionListener(this);
         
         this.setTitle("Servidor");
-        this.setSize(400, 100);
+        this.setSize(400, 110);
         this.setVisible(true);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -68,7 +89,7 @@ public class ServidorCaptura extends JFrame implements ActionListener, Runnable 
     
     void iniServ(){
         try {
-            lblEst.setText("Esperando al Cliente por el puerto: " + txtPuerto.getText());
+        	lblEst.setText("Esperando al Cliente por el puerto: " + txtPuerto.getText());
             s = new ServerSocket(Integer.parseInt(txtPuerto.getText()));
             con = s.accept();
             if (con.isConnected()){
@@ -147,5 +168,4 @@ public class ServidorCaptura extends JFrame implements ActionListener, Runnable 
     public void run() {
         this.procImagenes();
     }
-
 }

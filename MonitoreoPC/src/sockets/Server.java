@@ -189,7 +189,6 @@ public class Server {
 								ObjectOutputStream ous =	new ObjectOutputStream(aux.getOutputStream());
 								ObjectInputStream ois =	new ObjectInputStream(aux.getInputStream());
 								ous.writeObject("8");
-								
 							}
 						}
 					} catch (Exception e) {

@@ -1,6 +1,8 @@
 package sockets;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -17,16 +19,16 @@ public class Cliente {
 	
 	public Cliente() {
 		try {
-			System.out.println("-->Se empieza a crear");
+			System.out.println("--->Iniciando el Cliente");
 			Socket cliente = new Socket(HOST, PUERTO);
-			System.out.println("-->Se creó el cliente");
+			System.out.println("-->Cliente creado");
 
 			//--->permite enviar y recibir textos y objetos
 			ObjectOutputStream  ous = null;
 			ObjectInputStream  ois = null;
 			
 			while(true){
-				System.out.println("--> En espera del mensaje");
+				System.out.println("--> Wait");
 				ous = new ObjectOutputStream(cliente.getOutputStream());
 				ois = new ObjectInputStream(cliente.getInputStream());
 
@@ -59,10 +61,19 @@ public class Cliente {
                 Runtime.getRuntime().exec("notepad");
 				}
 				//----------VER PROCESOS--------//
-				//else if (msg.equals("8")){
-					//String consola = System.getenv("windir")+"\\System32\\"+"tasklist.exe";
-					//Runtime.getRuntime().exec(consola);
-				//}
+				else if (msg.equals("8")){
+					String consola = System.getenv("windir")+"\\System32\\"+"tasklist.exe";
+					  // Ejecutamos el comando
+					  Process proceso=Runtime.getRuntime().exec(consola);
+					  //OBTENEMOS EL BUFFER DE SALIDA
+					  BufferedReader entrada = new BufferedReader(new InputStreamReader(proceso.getInputStream()));
+					  String tmp;
+					  while((tmp=entrada.readLine())!=null){
+					   System.out.println(tmp);
+					   
+					  }
+					  entrada.close();
+				}
 				
 				//--------BLOQUEAR CHROME--------//
 				else if(msg.equals("10")){

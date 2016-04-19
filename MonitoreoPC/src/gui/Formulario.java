@@ -98,7 +98,7 @@ public class Formulario extends JFrame implements ActionListener {
 		setForeground(Color.WHITE);
 		setBackground(UIManager.getColor("Button.disabledShadow"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1043, 390);
+		setBounds(100, 100, 1027, 438);
 		
 		contentPane = new JPanel();
 		contentPane.setForeground(Color.WHITE);
@@ -106,8 +106,8 @@ public class Formulario extends JFrame implements ActionListener {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));		
 		
 		// AGREGANDO UN TAMAÑO FIJO AL FORMULARIO //
-		setMaximumSize ( new Dimension ( 600, 450 ) );
-		setMinimumSize ( new Dimension ( 600, 450 ) );
+		setMaximumSize ( new Dimension(580, 450) );
+		setMinimumSize ( new Dimension(580, 450) );
 	
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -190,13 +190,6 @@ public class Formulario extends JFrame implements ActionListener {
 		contentPane.add(btnEnvArchivo);
 		
 		btnVerProcesosRemotos = new JButton("Ver Procesos Remotos");
-		btnVerProcesosRemotos.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				AdministradordeTareas view = new AdministradordeTareas();
-	            view.setVisible(true);
-			}
-		});
 		btnVerProcesosRemotos.setHorizontalAlignment(SwingConstants.LEFT);
 		btnVerProcesosRemotos.setIcon(new ImageIcon(Formulario.class.getResource("/utiles/process_accept.png")));
 		btnVerProcesosRemotos.setForeground(Color.BLACK);
@@ -233,7 +226,7 @@ public class Formulario extends JFrame implements ActionListener {
 		contentPane.add(lblNewLabel);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 102, 339, 217);
+		scrollPane.setBounds(10, 102, 339, 208);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -255,13 +248,13 @@ public class Formulario extends JFrame implements ActionListener {
 		verticalBox.setForeground(SystemColor.activeCaption);
 		verticalBox.setBorder(new LineBorder(new Color(224, 255, 255), 2));
 		verticalBox.setBackground(SystemColor.activeCaption);
-		verticalBox.setBounds(375, 82, 617, 237);
+		verticalBox.setBounds(375, 95, 617, 208);
 		contentPane.add(verticalBox);
 		
 		JLabel lblNewLabel_1 = new JLabel("Conexiones Verificadas");
 		lblNewLabel_1.setForeground(new Color(0, 0, 139));
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1.setBounds(375, 57, 151, 27);
+		lblNewLabel_1.setBounds(375, 65, 151, 27);
 		contentPane.add(lblNewLabel_1);
 		
 		JButton btnPaint = new JButton("");
@@ -283,7 +276,7 @@ public class Formulario extends JFrame implements ActionListener {
 		btnPaint.setForeground(Color.BLACK);
 		btnPaint.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnPaint.setBackground(Color.WHITE);
-		btnPaint.setBounds(868, 355, 45, 43);
+		btnPaint.setBounds(461, 343, 45, 43);
 		contentPane.add(btnPaint);
 		
 		JButton btnNotepad = new JButton("");
@@ -307,17 +300,19 @@ public class Formulario extends JFrame implements ActionListener {
 		btnNotepad.setForeground(Color.BLACK);
 		btnNotepad.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNotepad.setBackground(Color.WHITE);
-		btnNotepad.setBounds(813, 355, 45, 43);
+		btnNotepad.setBounds(388, 343, 45, 43);
 		contentPane.add(btnNotepad);
 		
 		JLabel lblNewLabel_2 = new JLabel("Utilitarios");
+		lblNewLabel_2.setForeground(new Color(25, 25, 112));
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_2.setBounds(813, 330, 95, 21);
+		lblNewLabel_2.setBounds(380, 314, 95, 21);
 		contentPane.add(lblNewLabel_2);
 		
 		JLabel lblBloquearProgramas = new JLabel("Bloquear Programas");
+		lblBloquearProgramas.setForeground(new Color(25, 25, 112));
 		lblBloquearProgramas.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblBloquearProgramas.setBounds(501, 330, 151, 21);
+		lblBloquearProgramas.setBounds(551, 314, 151, 21);
 		contentPane.add(lblBloquearProgramas);
 		
 		JButton btnChrome = new JButton("");
@@ -340,7 +335,7 @@ public class Formulario extends JFrame implements ActionListener {
 		btnChrome.setForeground(Color.BLACK);
 		btnChrome.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnChrome.setBackground(Color.WHITE);
-		btnChrome.setBounds(496, 355, 45, 43);
+		btnChrome.setBounds(551, 343, 45, 43);
 		contentPane.add(btnChrome);
 		
 		JButton btnWord = new JButton("");
@@ -362,7 +357,7 @@ public class Formulario extends JFrame implements ActionListener {
 		btnWord.setForeground(Color.BLACK);
 		btnWord.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnWord.setBackground(Color.WHITE);
-		btnWord.setBounds(551, 355, 45, 43);
+		btnWord.setBounds(606, 343, 45, 43);
 		contentPane.add(btnWord);
 		
 		JButton btnExcel = new JButton("");
@@ -384,8 +379,26 @@ public class Formulario extends JFrame implements ActionListener {
 		btnExcel.setForeground(Color.BLACK);
 		btnExcel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnExcel.setBackground(Color.WHITE);
-		btnExcel.setBounds(607, 355, 45, 43);
+		btnExcel.setBounds(662, 343, 45, 43);
 		contentPane.add(btnExcel);
+		
+		Box verticalBox_1 = Box.createVerticalBox();
+		verticalBox_1.setToolTipText("");
+		verticalBox_1.setForeground(SystemColor.activeCaption);
+		verticalBox_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		verticalBox_1.setBorder(new LineBorder(new Color(224, 255, 255), 2));
+		verticalBox_1.setBackground(SystemColor.activeCaption);
+		verticalBox_1.setBounds(375, 334, 151, 58);
+		contentPane.add(verticalBox_1);
+		
+		Box verticalBox_2 = Box.createVerticalBox();
+		verticalBox_2.setToolTipText("");
+		verticalBox_2.setForeground(SystemColor.activeCaption);
+		verticalBox_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		verticalBox_2.setBorder(new LineBorder(new Color(224, 255, 255), 2));
+		verticalBox_2.setBackground(SystemColor.activeCaption);
+		verticalBox_2.setBounds(536, 334, 187, 58);
+		contentPane.add(verticalBox_2);
 		
 		//Crea un hilo(No interrumpa a la GUI)
 		//Ejecucion en paralelo a la GUI
@@ -556,14 +569,12 @@ public class Formulario extends JFrame implements ActionListener {
 
 	protected void do_btnVerProcesosRemotos_actionPerformed(ActionEvent arg0) {
 
-int fila = table.getSelectedRow();
+        int fila = table.getSelectedRow();
 		
 		if(fila != -1){
 			DefaultTableModel m = (DefaultTableModel) table.getModel();
 			String ip = m.getValueAt(fila, 0).toString();
-
-			AdministradordeTareas file = new AdministradordeTareas();	
-			server.traer(ip);
+			server.Procesos(ip);
 		}else{
 			JOptionPane.showMessageDialog(this, "Seleccione una fila");
 		

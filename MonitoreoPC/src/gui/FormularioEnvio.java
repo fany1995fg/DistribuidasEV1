@@ -99,8 +99,17 @@ public class FormularioEnvio extends JFrame implements ActionListener{
 		pnlSur.add(btnEliminar);
 		btnEliminar.setText("Eliminar");
 		
+		btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose(); 
+				
+			}
+		});
+		pnlSur.add(btnSalir);
+		
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setSize(550, 300);
+		setSize(554, 300);
 		setVisible(true);
 
 		btnAgregar.addActionListener(this);
@@ -116,6 +125,7 @@ public class FormularioEnvio extends JFrame implements ActionListener{
 	}
 
 	String archivo ="";
+	private JButton btnSalir;
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnEscoger){
