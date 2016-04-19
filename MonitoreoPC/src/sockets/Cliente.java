@@ -40,7 +40,7 @@ public class Cliente {
 				}
 				//----------Reiniciar Equipo-----------//	
 				else if(msg.equals("2")){
-					//Runtime.getRuntime().exec("shutdown -r");
+					Runtime.getRuntime().exec("shutdown -r");
 				}
 				//-----------Enviar Mensaje-----------//	
 				

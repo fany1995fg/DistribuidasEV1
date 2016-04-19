@@ -17,10 +17,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import java.awt.Color;
-import javax.swing.SwingConstants;
-import javax.swing.ImageIcon;
-import java.awt.Font;
 
 public class ClienteCaptura extends JFrame implements ActionListener, Runnable {
     Socket c;
@@ -31,7 +27,6 @@ public class ClienteCaptura extends JFrame implements ActionListener, Runnable {
     JTextField txtIp, txtPuerto;
     JLabel lblEst;
     Thread t;
-    private JLabel lblImg;
     
     public ClienteCaptura()
     {    
@@ -39,46 +34,25 @@ public class ClienteCaptura extends JFrame implements ActionListener, Runnable {
     }
     
     final void ini(){
+        
+        this.setLayout(new FlowLayout());
         btnIni = new JButton("Iniciar");
-        btnIni.setBounds(263, 13, 90, 23);
         btnIni.addActionListener(this);
         txtIp = new JTextField(10);
-        txtIp.setBounds(30, 14, 114, 20);
-        txtIp.setText("Ingresa IP Servidor");
+        txtIp.setText("localhost");
         txtPuerto = new JTextField(5);
-        txtPuerto.setBounds(207, 14, 46, 20);
         txtPuerto.setText("5000");
         lblEst = new JLabel("Esperando Iniciar");
-        lblEst.setFont(new Font("Tahoma", Font.BOLD, 13));
-        lblEst.setForeground(new Color(255, 255, 255));
-        lblEst.setBounds(362, 16, 119, 14);
-        getContentPane().setLayout(null);
         
-        JLabel label = new JLabel("Ip:");
-        label.setFont(new Font("Tahoma", Font.BOLD, 13));
-        label.setForeground(new Color(255, 255, 255));
-        label.setBounds(10, 9, 20, 29);
-        getContentPane().add(label);
-        getContentPane().add(txtIp);
-        JLabel label_1 = new JLabel("Puerto:");
-        label_1.setFont(new Font("Tahoma", Font.BOLD, 13));
-        label_1.setForeground(new Color(255, 255, 255));
-        label_1.setBounds(154, 16, 61, 14);
-        getContentPane().add(label_1);
-        getContentPane().add(txtPuerto);
-        getContentPane().add(btnIni);
-        getContentPane().add(lblEst);
-        
-        lblImg = new JLabel();
-        lblImg.setBounds(0, 0, 544, 62);
-        lblImg.setIcon(new ImageIcon(ClienteCaptura.class.getResource("/utiles/fondo3.png")));
-        lblImg.setVerticalAlignment(SwingConstants.TOP);
-        lblImg.setForeground(new Color(0, 250, 154));
-        lblImg.setBackground(new Color(255, 255, 240));
-        getContentPane().add(lblImg);
+        this.add(new JLabel("Ip:"));
+        this.add(txtIp);
+        this.add(new JLabel("Puerto:"));
+        this.add(txtPuerto);
+        this.add(btnIni);
+        this.add(lblEst);
         
         this.setTitle("Cliente");
-        this.setBounds(0, 0, 527, 100);
+        this.setBounds(0, 0, 400, 100);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
